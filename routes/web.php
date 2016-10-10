@@ -18,3 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/search', 'SearchQueriesController@index');
+Route::post('/search/store', 'SearchQueriesController@store');
+Route::get('/search/{tags}/page/{pages}', [
+    'as'=> 'search',
+    'uses' =>'SearchQueriesController@paginate'
+]);
+
+Route::get('/history', 'SearchHistoryController@index');

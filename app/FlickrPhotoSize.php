@@ -2,13 +2,10 @@
     namespace App;
     use JeroenG\Flickr\Flickr;
 
-    class FlickrPhotosSearch extends Flickr
+    class FlickrPhotoSize extends Flickr
     {
-        public function byTag($tag)
+        public function getPhotoSizes($photoId)
         {
-            $parameters['tags'] = $tag;
-            $parameters['per_page'] = 5;
-            $parameters['extras'] = 'original_format';
-            return $this->request('flickr.photos.search', $parameters);
+            return $this->request('flickr.photos.getSizes', $photoId);
         }
     }

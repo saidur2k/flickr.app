@@ -21,3 +21,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+$factory->define(App\SearchQueries::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => 1,
+        'search_string' => $faker->word
+    ];
+});
