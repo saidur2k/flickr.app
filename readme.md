@@ -21,7 +21,8 @@ This app generates image galleries in response to user searches and draws its co
 3) Also, in the terminal: cp sample.env to .env
 4) Also, in the terminal: vagrant up (might have to vagrant init - first time)
 4) Configure /etc/hosts: vim /etc/hosts  - and add - 192.168.10.10   flickr.app
-5) Use your fav browser and navigate to flickr.app
+5) Also, in the terminal: composer install
+6) Use your fav browser and navigate to flickr.app
 
 ## How to run the automatic tests
 - Install PhantomJS and run on port 4444
