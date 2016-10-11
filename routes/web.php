@@ -23,7 +23,7 @@ Route::get('/search', 'SearchQueriesController@index');
 Route::post('/search/store', 'SearchQueriesController@store');
 Route::get('/search/{tags}/page/{pages}', [
     'as'=> 'search',
-    'uses' =>'SearchQueriesController@paginate'
+    'uses' =>'SearchQueriesController@paginatedSearchQuery'
 ]);
 
 Route::get('/history', 'SearchHistoryController@index');

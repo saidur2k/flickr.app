@@ -1,27 +1,35 @@
-# Laravel PHP Framework
+#Flickr.app
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+The app is created with Laravel5.3 using Homestead.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+This app generates image galleries in response to user searches and draws its contents from the Flickr API.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+1) Requires user to register before allowing them to search
+2) Search results are paginated and displayed as 5 results per page and allows the user to navigate to other pages
+3) Each image is displayed as a thumbnail. Clicking on the thumbnail opens a new page to show the full size image.
+4) The app also maintains a search history and displays the list of recent searches made by the user.
 
-## Official Documentation
+## How to install dependencies
+1) Git: https://git-scm.com/downloads
+2) Get Composer: https://getcomposer.org/doc/00-intro.md 
+3) Install Vagrant: https://www.vagrantup.com/downloads.html
+4) Laravel Homestead Install Instructions: https://laravel.com/docs/5.3/homestead
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+## How to run the application
+1) Clone the repo from Github to a local folder
+2) Navigate to the folder in the Terminal
+3) Also, in the terminal: cp sample.env to .env
+4) Also, in the terminal: vagrant up (might have to vagrant init - first time)
+4) Configure /etc/hosts: vim /etc/hosts  - and add - 192.168.10.10   flickr.app
+5) Use your fav browser and navigate to flickr.app
 
-## Contributing
+## How to run the automatic tests
+- Install PhantomJS and run on port 4444
+- From Laravel folder, execute: php vendor/bin/codecept run
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+## Compromises / shortcuts taken due to time consideration
+- Would prefer to setup the configuration on Docker instead of Homestead and build a CI/CD pipeline with DockerCloud, Travis CI and AWS
+- I kept it really simple
+- Would liked to have created a thinner Laravel backend json API instead and feed to a JS mvc framework
+- No unit tests. Relied on Acceptance testing since it is such a simple project
+- Using SQLite to keep it really simple

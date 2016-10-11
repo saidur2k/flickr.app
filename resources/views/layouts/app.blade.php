@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Flickr.app</title>
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
@@ -36,12 +36,12 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        Flickr.app
                     </a>
 
                      @if (!Auth::guest())
                         <a class="navbar-brand" href="{{ url('/search') }}">| Search Flickr</a>
-                        <a class="navbar-brand" href="{{ url('/history') }}">| My History</a>
+                        <a class="navbar-brand" href="{{ url('/history') }}">| My Search History</a>
                      @endif
 
                 </div>
@@ -53,22 +53,23 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <div id="DropDownToggle">
+                    <ul class="nav navbar-nav navbar-right" >
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
                         @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                            <li class="dropdown" id="LoggedInUserName">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >
+                                    <span id="UserGreeting">Welcome,</span> {{ Auth::user()->name }}<span class="caret"></span>
                                 </a>
 
-                                <ul class="dropdown-menu" role="menu">
+                                <ul class="dropdown-menu" role="menu" id="LogoutButton">
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                     document.getElementById('logout-form').submit();" >
                                             Logout
                                         </a>
 
@@ -80,6 +81,7 @@
                             </li>
                         @endif
                     </ul>
+                    </div>
                 </div>
             </div>
         </nav>

@@ -1,5 +1,6 @@
 <?php
     namespace App;
+
     class FlickrPhotoUrlBuilder
     {
         public static function getThumbnailPhotoUrl(array $photo)
