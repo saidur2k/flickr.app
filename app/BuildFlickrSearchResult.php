@@ -3,33 +3,48 @@
     namespace App;
 
     use App\SanitizeFlickrPhotoSearch;
-    use App\PaginateFlickrPhotoSearch;
+    use App\FlickrApi;
 
     class BuildFlickrSearchResult
     {
-        private $tag;
-        private $currentPage;
+        private $photoSearchApi;
 
-        private $photoList;
+        private $rawPhotoSearchData;
 
-        public function __construct($tag, $currentPage = 1)
+        public function __construct(SearchObject $searchObject)
         {
-            $this->photoUrlBuilder = new FlickrPhotoUrlBuilder();
-            $this->tag = $tag;
-            $this->currentPage = $currentPage;
+            $this->photoSearchApi = FlickrApi::photoSearch();
+            $this->rawPhotoSearchData = $this->photoSearchApi->byTag($searchObject);
+            $this->sanitizedPhotoSearchData = $this->rawPhotoSearchData->__get('photos');
+        }
 
-            $this->photoList = new SanitizeFlickrPhotoSearch($this->tag, $this->currentPage);
+        public function getRawPhotoSearchResult()
+        {
+            return $this->rawPhotoSearchData;
+        }
+
+        public function getSanitizedSearchResult()
+        {
+            return $this->rawPhotoSearchData->__get('photos');
         }
 
         public function getPhotoList()
         {
-
-            return $this->photoList->getSanitizedSearchResult();
+            return $this->sanitizedPhotoSearchData['photo'];
         }
 
-        public function getPaginationBar()
+        public function getCurrentPage()
         {
-            $paginate = new PaginateFlickrPhotoSearch($this->photoList->getCurrentPage(), $this->photoList->getTotalPages());
-            return $paginate->paginate();
+            return $this->sanitizedPhotoSearchData['page'];
+        }
+
+        public function getTotalPages()
+        {
+            return $this->sanitizedPhotoSearchData['pages'];
+        }
+
+        public function getTotalItems()
+        {
+            return $this->sanitizedPhotoSearchData['total'];
         }
     }

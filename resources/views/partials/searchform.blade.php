@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <h2>Search Flickr</h2>
             <div classs="row">
-                <form method="POST" action="/search/store" class="col-md-6" id="SearchForm">
+                <form method="post" action="/search" class="col-md-6" id="SearchForm">
                     {{ csrf_field() }}
                     <input name="search_string" type="value" value="{{ isset($tag) ? $tag : "" }}" required></input>
                     <button id="SearchButton">Search</button>

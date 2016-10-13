@@ -1,21 +1,16 @@
 <?php
+
     namespace App;
 
-    use JeroenG\Flickr\Flickr as JGFlickr;
+    use JeroenG\Flickr\Api as FlickrConfig;
+    use App\FlickrPhotosSearch;
 
-    class FlickrApi extends JGFlickr
+    class FlickrApi
     {
-        public function listByTag($tag = null)
+        public static function photoSearch()
         {
-            $parameters['tags'] = 'cat';
-            $parameters['per_page'] = 5;
-            $parameters['extras'] = 'original_format';
-            return $this->request('flickr.photos.search', $parameters);
+            $api = new FlickrConfig($_ENV['FLICKR_KEY'], 'php_serial');
+            $photoSearch = new FlickrPhotosSearch($api);
+            return $photoSearch;
         }
-
-        public function getPhotoSizes($photoId)
-        {
-            return $this->request('flickr.photos.getSizes', $photoId);
-        }
-
     }

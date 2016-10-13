@@ -1,15 +1,16 @@
 <?php
     namespace App;
+
     use JeroenG\Flickr\Flickr;
 
     class FlickrPhotosSearch extends Flickr
     {
-        public function byTag($tag, $page = 1)
+        public function byTag(SearchObject $searchObject)
         {
-            $parameters['tags'] = $tag;
-            $parameters['per_page'] = 5;
+            $parameters['tags'] = $searchObject->getTag();
+            $parameters['per_page'] = $searchObject::RESULTS_PER_PAGE;
             $parameters['extras'] = 'original_format';
-            $parameters['page'] = $page;
+            $parameters['page'] = $searchObject->getPage();
             return $this->request('flickr.photos.search', $parameters);
         }
     }

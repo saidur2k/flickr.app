@@ -26,6 +26,7 @@
             $I->see('Dashboard');
             $I->click('Welcome,', '#LoggedInUserName');
             $I->click('Logout', '#LogoutButton');
+            $I->dontSee('Exception');
         }
 
         public function registerExistingUser(AcceptanceTester $I)
@@ -38,6 +39,7 @@
             $I->fillField(['name' => 'password_confirmation'], 'testuserpass');
             $I->click('Register', '#RegistrationForm');
             $I->see('The email has already been taken');
+            $I->dontSee('Exception');
         }
 
         public function loginWithJohnSmithAndSearchForCatandSeeIfFirstPageHas5Cats(AcceptanceTester $I)
@@ -52,6 +54,7 @@
             $I->fillField(['name' => 'search_string'], 'cat');
             $I->click('Search', '#SearchForm');
             $I->seeNumberOfElements('img', 5);
+            $I->dontSee('Exception');
         }
 
         public function loginWithJohnSmithAndSeeIfLastSearchIsCatAndLogout(AcceptanceTester $I)
@@ -64,6 +67,8 @@
             $I->see('Dashboard');
             $I->click('My Search History');
             $I->see('cat', '//*[@id="app"]/div/ul[1]/li[1]');
+            $I->click('cat', '//*[@id="app"]/div/ul[1]/li[1]');
+            $I->dontSee('Exception');
             $I->click('Welcome,', '#LoggedInUserName');
             $I->click('Logout', '#LogoutButton');
         }

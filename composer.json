@@ -9,7 +9,8 @@
         "laravel/framework": "5.3.*",
         "jeroen-g/flickr": "^1.0",
         "codeception/codeception": "*",
-        "monolog/monolog": "^1.21"
+        "monolog/monolog": "^1.21",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

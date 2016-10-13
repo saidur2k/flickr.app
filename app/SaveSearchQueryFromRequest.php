@@ -8,23 +8,18 @@
 
     class SaveSearchQueryFromRequest
     {
-        private $request;
-
-        public function __construct(Request $request)
+        public function __construct($tag)
         {
-            $this->request = $request;
+            $this->save($tag);
         }
 
-        public function save()
+        private function save($tag)
         {
             //store the search string and return search string
-            $data = $this->request->all();
+            $data = array();
+            $data['search_string'] = $tag;
             $data['user_id'] = Auth::user()->id;
             SearchQueries::create($data);
         }
 
-        public function get()
-        {
-            return $this->request->input('search_string');
-        }
     }
