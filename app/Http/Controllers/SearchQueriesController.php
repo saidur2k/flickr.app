@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\FlickrPaginatePhotoSearch;
+use Illuminate\Http\Request;
 use Auth;
-use App\FlickrPhotoUrlBuilder;
-use App\PhotoListBuilder;
-use App\BuildFlickrSearchResult;
 use App\SearchObject;
+use App\FlickrPaginatePhotoSearch;
+use App\FlickrPhotoUrlBuilder;
 
 class SearchQueriesController extends Controller
 {
-    public function __construct()
+    public function __construct(Request $request, $tag = null)
     {
         $this->middleware('auth');
+
     }
 
     public function index()
@@ -21,12 +21,24 @@ class SearchQueriesController extends Controller
         return view('search');
     }
 
-    public static function paginatedSearchQuery(SearchObject $searchObject)
+    public function saveAndSearch(Request $request)
     {
-        $searchResults = new BuildFlickrSearchResult($searchObject);
-        $photoUrlBuilder = new FlickrPhotoUrlBuilder();
-        $paginatedSearchResults = new FlickrPaginatePhotoSearch($searchObject, $searchResults);
-        return view('search', ['searchResults' => $searchResults->getPhotoList() , 'photoBuilder' => $photoUrlBuilder, 'results' => $paginatedSearchResults->render()]);
+        $searchObject = new SearchObject($request, null);
+        $currentUser = Auth::user();
+        $currentUser->saveSearch($searchObject);
+        return $this->paginatedSearchQuery($request, $searchObject->getTag());
+    }
+
+    public function paginatedSearchQuery(Request $request, $tag)
+    {
+        $searchObject = new SearchObject($request, $tag);
+        $paginatedSearchResults = new FlickrPaginatePhotoSearch($searchObject);
+        return view('search',   ['tag'=> $searchObject->getTag()
+                               , 'searchResults' => $paginatedSearchResults->getSearchResults()
+                               , 'photoBuilder' => new FlickrPhotoUrlBuilder()
+                               , 'results' => $paginatedSearchResults->paginate()
+                                ]
+        );
     }
 
 }

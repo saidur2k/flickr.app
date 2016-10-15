@@ -1,8 +1,17 @@
 <?php
     namespace App;
 
+    /**
+     * Class FlickrPhotoUrlBuilder
+     * @package App
+     */
     class FlickrPhotoUrlBuilder
     {
+        /**
+         * @param array $photo
+         * @return string
+         * @throws \Exception
+         */
         public static function getThumbnailPhotoUrl(array $photo)
         {
             //template in https://www.flickr.com/services/api/misc.urls.html
@@ -24,6 +33,11 @@
             }
         }
 
+        /**
+         * @param array $photo
+         * @return string
+         * @throws \Exception
+         */
         public static function getFullPhotoUrl(array $photo)
         {
             //template in https://www.flickr.com/services/api/misc.urls.html

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <div class="container">
 
@@ -6,7 +7,7 @@
 
         <div class="row">
             @if( isset($searchResults) )
-            @foreach($searchResults as $photo)
+            @foreach(  $searchResults as $photo)
                 <h3>{{ $photo['title'] }}</h3>
                 <a href="{{ $photoBuilder::getFullPhotoUrl($photo) }}" target="_blank">
                     <img src="{{ $photoBuilder::getThumbnailPhotoUrl($photo) }}"></img>

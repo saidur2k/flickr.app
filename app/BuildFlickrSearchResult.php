@@ -5,44 +5,70 @@
     use App\SanitizeFlickrPhotoSearch;
     use App\FlickrApi;
 
+    /**
+     * Class BuildFlickrSearchResult
+     * @package App
+     */
     class BuildFlickrSearchResult
     {
-        private $photoSearchApi;
-
+        /**
+         * @var \JeroenG\Flickr\Response
+         */
         private $rawPhotoSearchData;
 
+        /**
+         * BuildFlickrSearchResult constructor.
+         * @param SearchObject $searchObject
+         */
         public function __construct(SearchObject $searchObject)
         {
-            $this->photoSearchApi = FlickrApi::photoSearch();
-            $this->rawPhotoSearchData = $this->photoSearchApi->byTag($searchObject);
+            $this->rawPhotoSearchData = FlickrApi::photoSearch()->byTag($searchObject);
             $this->sanitizedPhotoSearchData = $this->rawPhotoSearchData->__get('photos');
         }
 
+        /**
+         * @return \JeroenG\Flickr\Response
+         */
         public function getRawPhotoSearchResult()
         {
             return $this->rawPhotoSearchData;
         }
 
+        /**
+         * @return mixed
+         */
         public function getSanitizedSearchResult()
         {
-            return $this->rawPhotoSearchData->__get('photos');
+            return $this->sanitizedPhotoSearchData;
         }
 
+        /**
+         * @return mixed
+         */
         public function getPhotoList()
         {
             return $this->sanitizedPhotoSearchData['photo'];
         }
 
+        /**
+         * @return int
+         */
         public function getCurrentPage()
         {
             return $this->sanitizedPhotoSearchData['page'];
         }
 
+        /**
+         * @return int
+         */
         public function getTotalPages()
         {
             return $this->sanitizedPhotoSearchData['pages'];
         }
 
+        /**
+         * @return int
+         */
         public function getTotalItems()
         {
             return $this->sanitizedPhotoSearchData['total'];

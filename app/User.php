@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\SearchQueries;
+use Illuminate\Http\Request;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -26,4 +29,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function searchHistory()
+    {
+        return $this->hasMany(SearchQueries::class);
+    }
+
+    public function getCurrentUserId()
+    {
+        return $this->id;
+    }
+
+    //store the search string and return search string
+    public function saveSearch(SearchObject $search)
+    {
+        $userSearchHistory = $this->searchHistory();
+        $userSearchHistory->create(['search_string' => $search->getTag() , 'user_id' => $this->getCurrentUserId()]);
+    }
 }
