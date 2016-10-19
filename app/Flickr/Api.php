@@ -1,6 +1,6 @@
 <?php
 
-    namespace App;
+    namespace App\Flickr;
 
     use JeroenG\Flickr\Api as FlickrConfig;
     use App\FlickrPhotosSearch;
@@ -9,7 +9,7 @@
      * Class FlickrApi
      * @package App
      */
-    class FlickrApi
+    class Api
     {
         /**
          * @return \App\FlickrPhotosSearch

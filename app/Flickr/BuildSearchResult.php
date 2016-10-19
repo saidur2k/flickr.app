@@ -1,6 +1,6 @@
 <?php
 
-    namespace App;
+    namespace App\Flickr;
 
     use App\SanitizeFlickrPhotoSearch;
     use App\FlickrApi;
